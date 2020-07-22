@@ -6,7 +6,7 @@
   styles from most elements, ensuring things render equally across all
   browsers. We also add a few conveniences, like box-sizing: border-box.
  */
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
     *,
@@ -25,6 +25,11 @@ export default createGlobalStyle`
 
     html, body {
         max-width: 100vw;
+        height:100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* position:absolute; */
     }
 
     /* http://meyerweb.com/eric/tools/css/reset/

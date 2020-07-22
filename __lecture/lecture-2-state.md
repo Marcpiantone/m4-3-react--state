@@ -264,9 +264,7 @@ render(<App />);
 ---
 
 ```jsx live=true
-const FavouriteFood = () => {
-  const [food, setFood] = React.useState("");
-
+const FavouriteFood = ({ food, setFood }) => {
   return (
     <>
       <label>
@@ -294,10 +292,11 @@ const FavouriteFood = () => {
 };
 
 const App = () => {
+  const [food, setFood] = React.useState("");
   return (
     <>
-      <p>My favourite food is: ???</p>
-      <FavouriteFood />
+      <p>My favourite food is: {food}</p>
+      <FavouriteFood food={food} setFood={setFood} />
     </>
   );
 };
