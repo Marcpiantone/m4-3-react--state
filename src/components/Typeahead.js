@@ -50,6 +50,8 @@ const Typeahead = ({ suggestions, handleSelect }) => {
         return element.title.toLowerCase().includes(value.toLowerCase());
       });
       setNarrowedList(newArray);
+    } else {
+      setNarrowedList([]);
     }
   };
 
@@ -67,14 +69,15 @@ const Typeahead = ({ suggestions, handleSelect }) => {
         }}
       />
       <Button>Clear</Button>
-
-      <UList>
-        {narrowedlist.map((suggestion) => {
-          return (
-            <Suggestion suggestion={suggestion} handleSelect={handleSelect} />
-          );
-        })}
-      </UList>
+      {narrowedlist !== [] ? (
+        <UList>
+          {narrowedlist.map((suggestion) => {
+            return (
+              <Suggestion suggestion={suggestion} handleSelect={handleSelect} />
+            );
+          })}
+        </UList>
+      ) : null}
     </>
   );
 };
