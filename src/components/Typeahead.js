@@ -37,15 +37,12 @@ const UList = styled.ul`
   box-shadow: 0px 0px 20px 2px rgba(204, 204, 204, 1);
 `;
 
-const Wrapper = styled.div``;
-
 const Typeahead = ({ suggestions, handleSelect }) => {
   const [value, setValue] = useState("");
   const [narrowedlist, setNarrowedList] = useState([]);
-  const [selection, setSelection] = useState("");
 
   const matchedSelection = (value) => {
-    if (value !== "") {
+    if (value.length > 1) {
       let newArray = suggestions.filter((element) => {
         return element.title.toLowerCase().includes(value.toLowerCase());
       });
@@ -54,6 +51,8 @@ const Typeahead = ({ suggestions, handleSelect }) => {
       setNarrowedList([]);
     }
   };
+
+  let selection = narrowedlist[0];
 
   return (
     <>
@@ -65,15 +64,25 @@ const Typeahead = ({ suggestions, handleSelect }) => {
           matchedSelection(ev.target.value);
         }}
         onKeyDown={(ev) => {
-          if (ev.key === "Enter") handleSelect(value);
+          if (ev.key === "Enter") handleSelect(selection.title);
         }}
       />
-      <Button>Clear</Button>
+      <Button
+        onClick={() => {
+          setValue("");
+        }}
+      >
+        Clear
+      </Button>
       {narrowedlist !== [] ? (
         <UList>
           {narrowedlist.map((suggestion) => {
             return (
-              <Suggestion suggestion={suggestion} handleSelect={handleSelect} />
+              <Suggestion
+                suggestion={suggestion}
+                handleSelect={handleSelect}
+                userInput={value}
+              />
             );
           })}
         </UList>
