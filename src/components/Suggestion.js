@@ -17,6 +17,16 @@ const Prediction = styled.span`
   font-weight: bold;
 `;
 
+const Type = styled.p`
+  color: purple;
+  font-style: italic;
+  font-weight: bold;
+`;
+
+const Text = styled.p`
+  font-size: 1.5em;
+`;
+
 const boldPrediction = (suggestion, userInput) => {
   const title = suggestion.title.toLowerCase();
   const index = title.indexOf(userInput);
@@ -34,8 +44,12 @@ const Suggestion = ({ suggestion, handleSelect, userInput }) => {
       key={suggestion.id}
       onClick={() => handleSelect(suggestion.title)}
     >
-      {titleBolded["firstHalf"]}
-      <Prediction>{titleBolded["secondHalf"]}</Prediction>
+      <Text>
+        {titleBolded["firstHalf"]}
+        <Prediction>{titleBolded["secondHalf"]}</Prediction>
+      </Text>
+
+      <Type>{suggestion.categoryId}</Type>
     </SuggestionLItem>
   );
 };

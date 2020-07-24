@@ -36,7 +36,7 @@ const UList = styled.ul`
   top: 46%;
   left: 50%;
   width: 700px;
-  margin-left: -260px;
+  margin-left: -250px;
   -webkit-box-shadow: 0px 0px 20px 2px rgba(204, 204, 204, 1);
   -moz-box-shadow: 0px 0px 20px 2px rgba(204, 204, 204, 1);
   box-shadow: 0px 0px 20px 2px rgba(204, 204, 204, 1);
