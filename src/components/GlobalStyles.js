@@ -25,11 +25,7 @@ export default createGlobalStyle`
 
     html, body {
         max-width: 100vw;
-        height:100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        /* position:absolute; */
+        height:90vh;
     }
 
     /* http://meyerweb.com/eric/tools/css/reset/

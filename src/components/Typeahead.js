@@ -32,9 +32,24 @@ const Button = styled.button`
 `;
 
 const UList = styled.ul`
+  position: fixed;
+  top: 46%;
+  left: 50%;
+  width: 700px;
+  margin-left: -260px;
   -webkit-box-shadow: 0px 0px 20px 2px rgba(204, 204, 204, 1);
   -moz-box-shadow: 0px 0px 20px 2px rgba(204, 204, 204, 1);
   box-shadow: 0px 0px 20px 2px rgba(204, 204, 204, 1);
+`;
+
+const Centered = styled.div`
+  width: 500px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  margin-left: -250px;
+  margin-top: -100px;
 `;
 
 const Typeahead = ({ suggestions, handleSelect }) => {
@@ -56,24 +71,26 @@ const Typeahead = ({ suggestions, handleSelect }) => {
 
   return (
     <>
-      <Input
-        placeholder="search..."
-        value={value}
-        onChange={(ev) => {
-          setValue(ev.target.value);
-          matchedSelection(ev.target.value);
-        }}
-        onKeyDown={(ev) => {
-          if (ev.key === "Enter") handleSelect(selection.title);
-        }}
-      />
-      <Button
-        onClick={() => {
-          setValue("");
-        }}
-      >
-        Clear
-      </Button>
+      <Centered>
+        <Input
+          placeholder="search..."
+          value={value}
+          onChange={(ev) => {
+            setValue(ev.target.value);
+            matchedSelection(ev.target.value);
+          }}
+          onKeyDown={(ev) => {
+            if (ev.key === "Enter") handleSelect(selection.title);
+          }}
+        />
+        <Button
+          onClick={() => {
+            setValue("");
+          }}
+        >
+          Clear
+        </Button>
+      </Centered>
       {narrowedlist !== [] ? (
         <UList>
           {narrowedlist.map((suggestion) => {
