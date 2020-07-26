@@ -32,29 +32,24 @@ const Button = styled.button`
 `;
 
 const UList = styled.ul`
-  position: fixed;
-  top: 46%;
-  left: 50%;
-  width: 700px;
-  margin-left: -250px;
+  width: 600px;
   -webkit-box-shadow: 0px 0px 20px 2px rgba(204, 204, 204, 1);
   -moz-box-shadow: 0px 0px 20px 2px rgba(204, 204, 204, 1);
   box-shadow: 0px 0px 20px 2px rgba(204, 204, 204, 1);
 `;
 
 const Centered = styled.div`
-  width: 500px;
-  height: 200px;
-  top: 50%;
-  left: 50%;
-  position: fixed;
-  margin-left: -250px;
-  margin-top: -100px;
+  /* width: 500px;
+  height: 200px; */
+  /* top: 50%;
+  left: 50%;*/
+  margin-top: 50%;
 `;
 
 const Typeahead = ({ suggestions, handleSelect }) => {
   const [value, setValue] = useState("");
   const [narrowedlist, setNarrowedList] = useState([]);
+  const [selectedSuggestion, setSelectedSuggestion] = useState(0);
 
   const matchedSelection = (value) => {
     if (value.length > 1) {
@@ -67,7 +62,10 @@ const Typeahead = ({ suggestions, handleSelect }) => {
     }
   };
 
-  let selection = narrowedlist[0];
+  let selection = narrowedlist[selectedSuggestion];
+
+  const isSelected = (suggestion) =>
+    narrowedlist.indexOf(suggestion) === selectedSuggestion ? true : false;
 
   return (
     <>
@@ -80,7 +78,26 @@ const Typeahead = ({ suggestions, handleSelect }) => {
             matchedSelection(ev.target.value);
           }}
           onKeyDown={(ev) => {
-            if (ev.key === "Enter") handleSelect(selection.title);
+            console.log(`${selectedSuggestion}`);
+            switch (ev.key) {
+              case "Enter":
+                {
+                  handleSelect(selection.title);
+                }
+                return;
+              case "ArrowUp":
+                {
+                  if (selectedSuggestion > 0)
+                    setSelectedSuggestion(selectedSuggestion - 1);
+                }
+                return;
+              case "ArrowDown":
+                {
+                  if (selectedSuggestion < narrowedlist.length)
+                    setSelectedSuggestion(selectedSuggestion + 1);
+                }
+                return;
+            }
           }}
         />
         <Button
@@ -94,11 +111,15 @@ const Typeahead = ({ suggestions, handleSelect }) => {
       {narrowedlist !== [] ? (
         <UList>
           {narrowedlist.map((suggestion) => {
+            console.log(isSelected(suggestion));
             return (
               <Suggestion
                 suggestion={suggestion}
                 handleSelect={handleSelect}
                 userInput={value}
+                isSelected={isSelected(suggestion)}
+                setSelectedSuggestion={setSelectedSuggestion}
+                index={narrowedlist.indexOf(suggestion)}
               />
             );
           })}

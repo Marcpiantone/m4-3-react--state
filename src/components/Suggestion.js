@@ -7,10 +7,6 @@ import styled from "styled-components";
 const SuggestionLItem = styled.li`
   line-height: 1.5em;
   margin: 5px;
-
-  &:hover {
-    background-color: #ffffcc;
-  }
 `;
 
 const Prediction = styled.span`
@@ -35,14 +31,24 @@ const boldPrediction = (suggestion, userInput) => {
   return { firstHalf, secondHalf };
 };
 
-const Suggestion = ({ suggestion, handleSelect, userInput }) => {
+const Suggestion = ({
+  suggestion,
+  handleSelect,
+  userInput,
+  isSelected,
+  setSelectedSuggestion,
+  index,
+}) => {
   const titleBolded = boldPrediction(suggestion, userInput);
-
-  console.log(`${titleBolded["firstHalf"]}`);
+  console.log(index);
   return (
     <SuggestionLItem
       key={suggestion.id}
       onClick={() => handleSelect(suggestion.title)}
+      style={{
+        background: isSelected ? "hsla(50deg, 100%, 80%, 0.25)" : "transparent",
+      }}
+      onMouseEnter={() => setSelectedSuggestion(index)}
     >
       <Text>
         {titleBolded["firstHalf"]}
